@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calm Inside, Honest Outside</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: one narrow phone-first column of illustrated step cards, a live breathing coach in the middle, one swap card for the mistake */
+:root{
+  --bg:#EEF2FA; --surface:#FFFFFF; --ink:#16203A; --muted:#5A6482;
+  --coral:#F2603F; --sun:#FFC94D; --mint:#5CC8A6; --sky:#9DB8F2; --line:#D9E0EF;
+  --face:#FFE0B8;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Helvetica Neue", Arial, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121829; --surface:#1B2338; --ink:#F1F3FA; --muted:#A3ACC6;
+  --coral:#FF7A5C; --sun:#FFD36E; --mint:#6FD8B6; --sky:#7F9BE0; --line:#2B3552; --face:#F2CFA2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121829; --surface:#1B2338; --ink:#F1F3FA; --muted:#A3ACC6;
+  --coral:#FF7A5C; --sun:#FFD36E; --mint:#6FD8B6; --sky:#7F9BE0; --line:#2B3552; --face:#F2CFA2; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 48px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-0.01em}
+h1{font-size:clamp(2.2rem, 9vw, 3.2rem);line-height:1.02;font-weight:800}
+h2{font-size:1.55rem;line-height:1.15;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+
+.hero{display:grid;gap:14px;padding-top:6px}
+.hero svg{width:100%;max-width:100%;height:auto}
+.hero .lede{color:var(--muted);font-size:1.08rem;max-width:34ch}
+.hl{background:linear-gradient(transparent 60%, color-mix(in srgb, var(--sun) 70%, transparent) 60%);padding:0 .1em}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;gap:12px}
+.step-head{display:flex;align-items:center;gap:14px}
+.num{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:#16203A}
+.n1{background:var(--sky)} .n2{background:var(--mint)} .n3{background:var(--sun)}
+.say{font-family:var(--display);font-weight:700;font-size:1.25rem;line-height:1.25;background:var(--bg);border-radius:16px;padding:12px 16px;border:2px dashed var(--line)}
+.why{font-size:.92rem;color:var(--muted)}
+.why b{color:var(--ink);font-weight:600}
+.art{display:block;width:100%;max-width:100%;height:auto}
+
+/* breathing coach */
+.coach{display:grid;justify-items:center;gap:14px;padding-block:8px 4px}
+.ring{width:190px;height:190px;max-width:100%;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle, color-mix(in srgb, var(--mint) 55%, transparent) 0 38%, color-mix(in srgb, var(--mint) 18%, transparent) 39% 100%);
+  transform:scale(.62);transition:transform 1.2s ease}
+.ring span{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--ink);transform:scale(1.4)}
+.btn{font-family:var(--display);font-weight:700;font-size:1rem;border:0;border-radius:999px;padding:12px 22px;background:var(--ink);color:var(--bg);cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.pattern{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--muted)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--mint)}
+.dash{width:34px;height:6px;border-radius:6px;background:var(--coral)}
+
+/* mistake */
+.mistake{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mistake .eyebrow{color:var(--sun)}
+.swap{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.pill{border-radius:16px;padding:14px 12px;text-align:center;font-family:var(--display);font-weight:800;font-size:1.15rem;line-height:1.2}
+.no{background:color-mix(in srgb, var(--bg) 12%, transparent);text-decoration:line-through;text-decoration-color:var(--coral);text-decoration-thickness:3px;opacity:.85}
+.yes{background:var(--sun);color:#16203A}
+.arrow{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--sun)}
+.bars{display:grid;gap:10px;font-size:.9rem}
+.bar{display:grid;grid-template-columns:7.5em 1fr 2.8em;gap:10px;align-items:center}
+.track{height:12px;border-radius:12px;background:color-mix(in srgb, var(--bg) 18%, transparent);overflow:hidden}
+.fill{height:100%;border-radius:12px}
+.v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.mistake .why{color:color-mix(in srgb, var(--bg) 70%, transparent)}
+
+.recap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.recap div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 8px;font-family:var(--display);font-weight:700;font-size:1rem;line-height:1.2}
+.recap small{display:block;font-family:var(--body);font-weight:500;color:var(--muted);font-size:.78rem;margin-bottom:4px}
+footer{font-size:.78rem;color:var(--muted);display:grid;gap:6px;padding-top:8px;border-top:1px solid var(--line)}
+footer ul{margin:0;padding-left:1.1em}
+@media (prefers-reduced-motion: reduce){.ring{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <svg viewBox="0 0 520 230" role="img" aria-label="A nervous face laughing, with a sweat drop and a thought bubble that says stress">
+      <circle cx="430" cy="52" r="40" fill="var(--sun)" opacity=".35"/>
+      <circle cx="70" cy="190" r="56" fill="var(--sky)" opacity=".35"/>
+      <g transform="translate(160 18)">
+        <circle cx="100" cy="100" r="92" fill="var(--face)" stroke="var(--ink)" stroke-width="5"/>
+        <path d="M58 82 q14 -12 28 0" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M116 82 q14 -12 28 0" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M60 118 q40 50 82 0 z" fill="var(--ink)"/>
+        <path d="M76 132 q24 20 50 0" fill="var(--coral)"/>
+        <path d="M172 54 q12 20 0 30 q-12 -10 0 -30z" fill="var(--sky)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M20 62 l-12 -8 M18 78 l-14 0" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(372 120)">
+        <rect x="0" y="0" width="126" height="54" rx="27" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
+        <circle cx="-8" cy="62" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/>
+        <text x="63" y="35" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="var(--ink)">stress!</text>
+      </g>
+    </svg>
+    <p class="eyebrow">For when you laugh at the worst time</p>
+    <h1>Calm inside, <span class="hl">honest outside.</span></h1>
+    <p class="lede">People can't see what you feel. They only see your face. Here's what to do in the next five seconds.</p>
+  </header>
+
+  <section class="card" aria-labelledby="s1">
+    <div class="step-head"><div class="num n1">1</div><h2 id="s1">Name it in your head</h2></div>
+    <svg class="art" viewBox="0 0 480 120" aria-hidden="true">
+      <circle cx="70" cy="62" r="46" fill="var(--face)" stroke="var(--ink)" stroke-width="4"/>
+      <circle cx="54" cy="56" r="5" fill="var(--ink)"/><circle cx="86" cy="56" r="5" fill="var(--ink)"/>
+      <path d="M54 82 h32" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="132" cy="40" r="6" fill="var(--sky)"/><circle cx="150" cy="28" r="9" fill="var(--sky)"/>
+      <rect x="168" y="8" width="290" height="70" rx="35" fill="var(--sky)"/>
+      <text x="313" y="52" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="26" fill="#16203A">“This is stress.”</text>
+    </svg>
+    <p class="why">Putting a feeling into words calms the alarm part of your brain. <b>UCLA, 2007</b> (30 people).</p>
+  </section>
+
+  <section class="card" aria-labelledby="s2">
+    <div class="step-head"><div class="num n2">2</div><h2 id="s2">Breathe: two in, one long out</h2></div>
+    <div class="coach">
+      <div class="ring" id="ring" aria-live="polite"><span id="cue">Ready</span></div>
+      <div class="pattern" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dash"></span><span>in · in · out</span></div>
+      <button class="btn" id="go" type="button">Try it with me</button>
+    </div>
+    <p class="why">Five minutes a day of this beat meditation for mood. <b>Stanford, 2023</b> (108 people).</p>
+  </section>
+
+  <section class="card" aria-labelledby="s3">
+    <div class="step-head"><div class="num n3">3</div><h2 id="s3">If you still laugh, say it</h2></div>
+    <svg class="art" viewBox="0 0 480 120" aria-hidden="true">
+      <circle cx="70" cy="62" r="46" fill="var(--face)" stroke="var(--ink)" stroke-width="4"/>
+      <path d="M50 58 q6 -6 12 0 M78 58 q6 -6 12 0" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M52 78 q18 16 36 0" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M128 62 l26 -12 v24z" fill="var(--sun)"/>
+      <rect x="150" y="14" width="314" height="96" rx="24" fill="var(--sun)"/>
+      <text x="307" y="55" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="#16203A">“Sorry, I laugh</text>
+      <text x="307" y="85" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="#16203A">when I’m nervous.”</text>
+    </svg>
+    <p class="why">Don't hide it behind your hand. Hiding looks guilty. One honest sentence turns “rude” into “human.”</p>
+  </section>
+
+  <section class="card mistake" aria-labelledby="m">
+    <p class="eyebrow">The mistake everyone makes</p>
+    <h2 id="m">Don't fight it. Rename it.</h2>
+    <div class="swap">
+      <div class="pill no">“Calm down.”</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="pill yes">“I’m excited.”</div>
+    </div>
+    <div class="bars" role="img" aria-label="Singing test scores: I'm excited 80 percent, I'm calm 69 percent">
+      <div class="bar"><span>“I’m excited”</span><div class="track"><div class="fill" style="width:80%;background:var(--sun)"></div></div><span class="v">80%</span></div>
+      <div class="bar"><span>“I’m calm”</span><div class="track"><div class="fill" style="width:69%;background:var(--sky)"></div></div><span class="v">69%</span></div>
+    </div>
+    <p class="why">Singing test scores, <b style="color:inherit">Harvard, 2014</b>. Trying not to think about something makes it come back more than once a minute (<b style="color:inherit">Trinity University, 1987</b>).</p>
+  </section>
+
+  <section aria-label="Recap" class="recap">
+    <div><small>Step 1</small>Name it</div>
+    <div><small>Step 2</small>Breathe</div>
+    <div><small>Step 3</small>Say it</div>
+  </section>
+
+  <footer>
+    <p>From Bekir Bozkurt's Life Skills speech, COMMC 1000.</p>
+    <ul>
+      <li>Lieberman et al., Psychological Science, 2007</li>
+      <li>Balban et al., Cell Reports Medicine, 2023</li>
+      <li>Brooks, Journal of Experimental Psychology: General, 2014</li>
+      <li>Wegner et al., Journal of Personality and Social Psychology, 1987</li>
+      <li>Aragón et al., Psychological Science, 2015</li>
+      <li>Fredrickson &amp; Levenson, Cognition and Emotion, 1998</li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const ring=document.getElementById('ring'), cue=document.getElementById('cue'), go=document.getElementById('go');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let running=false;
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  function set(scale,text,dur){ring.style.transitionDuration=reduce?'0s':dur+'ms';ring.style.transform='scale('+scale+')';cue.textContent=text;}
+  go.addEventListener('click', async ()=>{
+    if(running) return; running=true; go.disabled=true;
+    for(let i=0;i<3;i++){
+      set(.82,'In',1100); await wait(1300);
+      set(1,'In again',700); await wait(1000);
+      set(.62,'Out…',4200); await wait(4600);
+    }
+    cue.textContent='Nice.'; go.textContent='Again'; go.disabled=false; running=false;
+  });
+})();
+</script>
+</body>
+</html>
