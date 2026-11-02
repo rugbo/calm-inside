@@ -4,175 +4,243 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Calm Inside, Honest Outside</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="You laugh when you're nervous. They think you're rude. Here's the 5-second fix.">
+<meta name="theme-color" content="#0D0F2B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-html{color-scheme:light}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}img{max-width:100%}[hidden]{display:none!important}
-/* Layout: one narrow phone-first column of illustrated step cards, a live breathing coach in the middle, one swap card for the mistake */
+/* Layout: one phone-first column. Each step is its own saturated color block; a live breathing orb sits in the middle; the mistake gets a flip + animated chart. Single deliberate dark look. */
 :root{
-  --bg:#EEF2FA; --surface:#FFFFFF; --ink:#16203A; --muted:#5A6482;
-  --coral:#F2603F; --sun:#FFC94D; --mint:#5CC8A6; --sky:#9DB8F2; --line:#D9E0EF;
-  --face:#FFE0B8;
-  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --night:#0D0F2B; --night-2:#161A45; --paper:#FFF7EC; --soft:#C9CBEA;
+  --tomato:#FF4B2B; --saffron:#FFB703; --cobalt:#3D5AFE; --mint:#00D6A3; --pink:#FF2E88; --violet:#7B2CFF;
+  --display:"Unbounded", "Arial Black", "Helvetica Neue", system-ui, sans-serif;
   --body:"Figtree", "Helvetica Neue", Arial, system-ui, sans-serif;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#121829; --surface:#1B2338; --ink:#F1F3FA; --muted:#A3ACC6;
-  --coral:#FF7A5C; --sun:#FFD36E; --mint:#6FD8B6; --sky:#7F9BE0; --line:#2B3552; --face:#F2CFA2; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#121829; --surface:#1B2338; --ink:#F1F3FA; --muted:#A3ACC6;
-  --coral:#FF7A5C; --sun:#FFD36E; --mint:#6FD8B6; --sky:#7F9BE0; --line:#2B3552; --face:#F2CFA2; color-scheme:dark}
-
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
-  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 48px}
-.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
-h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-0.01em}
-h1{font-size:clamp(2.2rem, 9vw, 3.2rem);line-height:1.02;font-weight:800}
-h2{font-size:1.55rem;line-height:1.15;font-weight:700}
+html{background:var(--night);overflow-x:clip}
+body{margin:0;background:var(--night);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.55;overflow-x:clip;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.g{padding-left:max(18px, env(safe-area-inset-left,0px));padding-right:max(18px, env(safe-area-inset-right,0px))}
+.col{max-width:560px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.02;letter-spacing:-0.02em}
 p{margin:0}
-.eyebrow{font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.tag{font-family:var(--display);font-weight:800;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
 
-.hero{display:grid;gap:14px;padding-top:6px}
-.hero svg{width:100%;max-width:100%;height:auto}
-.hero .lede{color:var(--muted);font-size:1.08rem;max-width:34ch}
-.hl{background:linear-gradient(transparent 60%, color-mix(in srgb, var(--sun) 70%, transparent) 60%);padding:0 .1em}
+/* ---------- ambient background ---------- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:drift 18s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:60vmax;height:60vmax;background:var(--violet);left:-25vmax;top:-20vmax}
+.aurora i:nth-child(2){width:50vmax;height:50vmax;background:var(--pink);right:-25vmax;top:30vh;animation-duration:22s;opacity:.35}
+.aurora i:nth-child(3){width:45vmax;height:45vmax;background:var(--cobalt);left:-10vmax;bottom:-25vmax;animation-duration:26s;opacity:.4}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+main{position:relative;z-index:1}
 
-.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;gap:12px}
-.step-head{display:flex;align-items:center;gap:14px}
-.num{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:#16203A}
-.n1{background:var(--sky)} .n2{background:var(--mint)} .n3{background:var(--sun)}
-.say{font-family:var(--display);font-weight:700;font-size:1.25rem;line-height:1.25;background:var(--bg);border-radius:16px;padding:12px 16px;border:2px dashed var(--line)}
-.why{font-size:.92rem;color:var(--muted)}
-.why b{color:var(--ink);font-weight:600}
-.art{display:block;width:100%;max-width:100%;height:auto}
+/* ---------- load-in ---------- */
+.in{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.3s}.d4{animation-delay:.42s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
-/* breathing coach */
-.coach{display:grid;justify-items:center;gap:14px;padding-block:8px 4px}
-.ring{width:190px;height:190px;max-width:100%;border-radius:50%;display:grid;place-items:center;
-  background:radial-gradient(circle, color-mix(in srgb, var(--mint) 55%, transparent) 0 38%, color-mix(in srgb, var(--mint) 18%, transparent) 39% 100%);
-  transform:scale(.62);transition:transform 1.2s ease}
-.ring span{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--ink);transform:scale(1.4)}
-.btn{font-family:var(--display);font-weight:700;font-size:1rem;border:0;border-radius:999px;padding:12px 22px;background:var(--ink);color:var(--bg);cursor:pointer}
-.btn:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
-.pattern{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--muted)}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--mint)}
-.dash{width:34px;height:6px;border-radius:6px;background:var(--coral)}
+/* ---------- hero ---------- */
+.hero{padding-block:34px 26px;display:grid;gap:18px}
+.face-wrap{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:6px auto 0;max-width:100%}
+.face{width:100%;height:100%;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
+.mouth{transform-origin:110px 140px;animation:laugh .45s ease-in-out infinite alternate}
+@keyframes laugh{to{transform:scaleY(.72)}}
+.drop{animation:slide 2.4s ease-in infinite}
+@keyframes slide{0%{transform:translateY(-6px);opacity:0}20%{opacity:1}100%{transform:translateY(26px);opacity:0}}
+.bubble{position:absolute;right:-4%;top:6%;background:var(--saffron);color:var(--night);font-family:var(--display);font-weight:900;font-size:clamp(.9rem,4vw,1.1rem);
+  padding:10px 16px;border-radius:999px;transform:rotate(8deg);animation:pop 2.4s cubic-bezier(.3,1.6,.5,1) infinite;box-shadow:0 10px 30px -8px var(--saffron)}
+@keyframes pop{0%,100%{transform:rotate(8deg) scale(1)}10%{transform:rotate(8deg) scale(1.18)}20%{transform:rotate(8deg) scale(1)}}
+.hero h1{font-size:clamp(2.6rem,12vw,4.2rem);font-weight:900}
+.shine{background:linear-gradient(90deg,var(--saffron),var(--tomato),var(--pink),var(--saffron));background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.lede{font-size:1.15rem;color:var(--soft);max-width:30ch}
+.lede b{color:var(--paper)}
+.cta{justify-self:start;display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:.9rem;
+  color:var(--night);background:var(--paper);border-radius:999px;padding:14px 22px;text-decoration:none;box-shadow:0 12px 30px -10px rgba(255,247,236,.6);transition:transform .2s}
+.cta:hover{transform:translateY(-2px)}
+.cta:focus-visible,.btn:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
+.cta span{display:inline-block;animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(4px)}}
 
-/* mistake */
-.mistake{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.mistake .eyebrow{color:var(--sun)}
+/* ---------- marquee ---------- */
+.marquee{overflow:hidden;background:var(--saffron);color:var(--night);transform:rotate(-2deg);margin:18px -20px 30px;padding:12px 0;box-shadow:0 14px 40px -14px var(--saffron)}
+.track{display:flex;width:max-content;animation:roll 16s linear infinite}
+.track span{font-family:var(--display);font-weight:900;font-size:1.05rem;letter-spacing:.04em;white-space:nowrap;padding-right:28px}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* ---------- step blocks ---------- */
+.steps{display:grid;gap:18px;padding-bottom:18px}
+.step{position:relative;border-radius:30px;padding:26px 22px 24px;overflow:hidden;display:grid;gap:14px;isolation:isolate}
+.step::after{content:"";position:absolute;inset:auto -30% -45% auto;width:75%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.14);z-index:-1}
+.s1{background:linear-gradient(150deg,#4F6BFF,var(--cobalt) 55%,#2A2FC9)}
+.s2{background:linear-gradient(150deg,#14E6B4,var(--mint) 50%,#00A383);color:var(--night)}
+.s3{background:linear-gradient(150deg,#FF6A3D,var(--tomato) 50%,#E0244D)}
+.big{font-family:var(--display);font-weight:900;font-size:4.2rem;line-height:.8;opacity:.25;position:absolute;right:18px;top:16px}
+.step h2{font-size:clamp(1.9rem,8.5vw,2.5rem);font-weight:900}
+.step .tag{opacity:.85}
+.quote{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.25;background:rgba(13,15,43,.28);border-radius:20px;padding:14px 18px;backdrop-filter:blur(4px)}
+.s2 .quote{background:rgba(13,15,43,.12)}
+.proof{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.92rem}
+.chip{font-family:var(--display);font-weight:800;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:6px 10px;background:rgba(13,15,43,.3)}
+.s2 .chip{background:rgba(13,15,43,.15)}
+
+/* breathing orb */
+.orb-zone{display:grid;justify-items:center;gap:14px;padding-block:6px}
+.orb{position:relative;width:190px;aspect-ratio:1;max-width:100%;display:grid;place-items:center}
+.orb .core{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFFFFF,var(--paper) 30%,#BFFFEF 70%);
+  box-shadow:0 0 0 10px rgba(255,255,255,.25),0 20px 50px -10px rgba(13,15,43,.45);transform:scale(.7);transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
+.orb .ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(13,15,43,.35);animation:ripple 3s ease-out infinite}
+.orb .ring:nth-child(2){animation-delay:1s}.orb .ring:nth-child(3){animation-delay:2s}
+@keyframes ripple{from{transform:scale(.55);opacity:.9}to{transform:scale(1.05);opacity:0}}
+.orb .cue{position:relative;font-family:var(--display);font-weight:900;font-size:1.2rem;color:var(--night)}
+.beats{display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:800;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
+.beats i{display:block;width:12px;height:12px;border-radius:50%;background:var(--night)}
+.beats b{display:block;width:40px;height:6px;border-radius:6px;background:var(--night)}
+.btn{font-family:var(--display);font-weight:800;font-size:.9rem;border:0;border-radius:999px;padding:14px 24px;background:var(--night);color:var(--mint);cursor:pointer;transition:transform .2s}
+.btn:hover{transform:scale(1.04)}
+.btn:disabled{opacity:.6;cursor:default;transform:none}
+
+/* typing bubble */
+.say{position:relative;background:var(--paper);color:var(--night);font-family:var(--display);font-weight:800;font-size:1.2rem;line-height:1.3;border-radius:24px 24px 24px 6px;padding:16px 18px;min-height:3.9em}
+.caret{display:inline-block;width:3px;height:1.05em;background:var(--tomato);vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- mistake ---------- */
+.mistake{padding-block:44px 20px;display:grid;gap:18px}
+.mistake h2{font-size:clamp(2.1rem,9.5vw,3rem);font-weight:900}
+.mistake h2 em{font-style:normal;color:var(--pink)}
 .swap{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
-.pill{border-radius:16px;padding:14px 12px;text-align:center;font-family:var(--display);font-weight:800;font-size:1.15rem;line-height:1.2}
-.no{background:color-mix(in srgb, var(--bg) 12%, transparent);text-decoration:line-through;text-decoration-color:var(--coral);text-decoration-thickness:3px;opacity:.85}
-.yes{background:var(--sun);color:#16203A}
-.arrow{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--sun)}
-.bars{display:grid;gap:10px;font-size:.9rem}
-.bar{display:grid;grid-template-columns:7.5em 1fr 2.8em;gap:10px;align-items:center}
-.track{height:12px;border-radius:12px;background:color-mix(in srgb, var(--bg) 18%, transparent);overflow:hidden}
-.fill{height:100%;border-radius:12px}
-.v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
-.mistake .why{color:color-mix(in srgb, var(--bg) 70%, transparent)}
+.pill{border-radius:20px;padding:16px 10px;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(.95rem,4.2vw,1.15rem);line-height:1.15}
+.no{background:var(--night-2);color:var(--soft);position:relative}
+.no::after{content:"";position:absolute;left:12%;right:12%;top:50%;height:4px;border-radius:4px;background:var(--pink);transform-origin:left;animation:strike .6s .9s cubic-bezier(.6,0,.2,1) both}
+@keyframes strike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.yes{background:linear-gradient(135deg,var(--saffron),#FF8A00);color:var(--night);animation:glow 2.4s ease-in-out infinite;box-shadow:0 0 0 0 rgba(255,183,3,.6)}
+@keyframes glow{50%{box-shadow:0 0 0 10px rgba(255,183,3,0)}}
+.arrow{font-family:var(--display);font-weight:900;font-size:1.5rem;color:var(--saffron)}
+.chart{background:var(--night-2);border-radius:26px;padding:20px;display:grid;gap:14px}
+.chart .tag{color:var(--soft)}
+.row{display:grid;grid-template-columns:6.6em 1fr 3em;gap:12px;align-items:center;font-weight:600}
+.bar{height:16px;border-radius:16px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar span{display:block;height:100%;border-radius:16px;transform-origin:left;animation:grow 1.4s .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.v{font-family:var(--display);font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.bear{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:var(--night-2);border-radius:26px;padding:18px 20px}
+.bear svg{width:62px;height:62px;animation:bob 3s ease-in-out infinite}
+.bear p{color:var(--soft);font-size:.98rem}
+.bear b{color:var(--paper);font-family:var(--display);font-weight:800;display:block;font-size:1.05rem;margin-bottom:2px}
 
-.recap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
-.recap div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 8px;font-family:var(--display);font-weight:700;font-size:1rem;line-height:1.2}
-.recap small{display:block;font-family:var(--body);font-weight:500;color:var(--muted);font-size:.78rem;margin-bottom:4px}
-footer{font-size:.78rem;color:var(--muted);display:grid;gap:6px;padding-top:8px;border-top:1px solid var(--line)}
+/* ---------- finale ---------- */
+.finale{padding-block:40px 30px;display:grid;gap:18px;text-align:left}
+.finale h2{font-size:clamp(2.3rem,11vw,3.6rem);font-weight:900}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chips div{border-radius:20px;padding:16px 8px;text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(.85rem,3.8vw,1rem);color:var(--night)}
+.chips div:nth-child(1){background:var(--cobalt);color:var(--paper)}
+.chips div:nth-child(2){background:var(--mint)}
+.chips div:nth-child(3){background:var(--tomato);color:var(--paper)}
+.chips small{display:block;font-family:var(--body);font-weight:700;font-size:.7rem;opacity:.75;margin-bottom:4px;letter-spacing:.08em}
+footer{padding-block:24px 40px;color:var(--soft);font-size:.8rem;display:grid;gap:8px;border-top:1px solid rgba(255,255,255,.1)}
 footer ul{margin:0;padding-left:1.1em}
-@media (prefers-reduced-motion: reduce){.ring{transition:none}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
 </style>
 </head>
 <body>
-
-<div class="wrap">
-  <header class="hero">
-    <svg viewBox="0 0 520 230" role="img" aria-label="A nervous face laughing, with a sweat drop and a thought bubble that says stress">
-      <circle cx="430" cy="52" r="40" fill="var(--sun)" opacity=".35"/>
-      <circle cx="70" cy="190" r="56" fill="var(--sky)" opacity=".35"/>
-      <g transform="translate(160 18)">
-        <circle cx="100" cy="100" r="92" fill="var(--face)" stroke="var(--ink)" stroke-width="5"/>
-        <path d="M58 82 q14 -12 28 0" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
-        <path d="M116 82 q14 -12 28 0" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
-        <path d="M60 118 q40 50 82 0 z" fill="var(--ink)"/>
-        <path d="M76 132 q24 20 50 0" fill="var(--coral)"/>
-        <path d="M172 54 q12 20 0 30 q-12 -10 0 -30z" fill="var(--sky)" stroke="var(--ink)" stroke-width="3"/>
-        <path d="M20 62 l-12 -8 M18 78 l-14 0" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
-      </g>
-      <g transform="translate(372 120)">
-        <rect x="0" y="0" width="126" height="54" rx="27" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>
-        <circle cx="-8" cy="62" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/>
-        <text x="63" y="35" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="var(--ink)">stress!</text>
-      </g>
-    </svg>
-    <p class="eyebrow">For when you laugh at the worst time</p>
-    <h1>Calm inside, <span class="hl">honest outside.</span></h1>
-    <p class="lede">People can't see what you feel. They only see your face. Here's what to do in the next five seconds.</p>
-  </header>
-
-  <section class="card" aria-labelledby="s1">
-    <div class="step-head"><div class="num n1">1</div><h2 id="s1">Name it in your head</h2></div>
-    <svg class="art" viewBox="0 0 480 120" aria-hidden="true">
-      <circle cx="70" cy="62" r="46" fill="var(--face)" stroke="var(--ink)" stroke-width="4"/>
-      <circle cx="54" cy="56" r="5" fill="var(--ink)"/><circle cx="86" cy="56" r="5" fill="var(--ink)"/>
-      <path d="M54 82 h32" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="132" cy="40" r="6" fill="var(--sky)"/><circle cx="150" cy="28" r="9" fill="var(--sky)"/>
-      <rect x="168" y="8" width="290" height="70" rx="35" fill="var(--sky)"/>
-      <text x="313" y="52" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="26" fill="#16203A">“This is stress.”</text>
-    </svg>
-    <p class="why">Putting a feeling into words calms the alarm part of your brain. <b>UCLA, 2007</b> (30 people).</p>
-  </section>
-
-  <section class="card" aria-labelledby="s2">
-    <div class="step-head"><div class="num n2">2</div><h2 id="s2">Breathe: two in, one long out</h2></div>
-    <div class="coach">
-      <div class="ring" id="ring" aria-live="polite"><span id="cue">Ready</span></div>
-      <div class="pattern" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dash"></span><span>in · in · out</span></div>
-      <button class="btn" id="go" type="button">Try it with me</button>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<main>
+  <header class="hero g"><div class="col" style="display:grid;gap:18px">
+    <div class="face-wrap in">
+      <svg class="face" viewBox="0 0 220 220" role="img" aria-label="A nervous face laughing with a sweat drop">
+        <defs><radialGradient id="skin" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#FFE3C2"/><stop offset="1" stop-color="#F7B98A"/></radialGradient></defs>
+        <circle cx="110" cy="110" r="100" fill="url(#skin)"/>
+        <circle cx="62" cy="128" r="14" fill="#FF7A8A" opacity=".55"/><circle cx="158" cy="128" r="14" fill="#FF7A8A" opacity=".55"/>
+        <path d="M60 92 q16 -16 32 0" fill="none" stroke="#0D0F2B" stroke-width="8" stroke-linecap="round"/>
+        <path d="M128 92 q16 -16 32 0" fill="none" stroke="#0D0F2B" stroke-width="8" stroke-linecap="round"/>
+        <g class="mouth"><path d="M66 128 q44 58 88 0 z" fill="#0D0F2B"/><path d="M84 146 q26 22 52 0" fill="#FF4B2B"/></g>
+        <path class="drop" d="M184 52 q14 22 0 34 q-14 -12 0 -34z" fill="#7FD8FF" stroke="#0D0F2B" stroke-width="3"/>
+      </svg>
+      <div class="bubble">stress!</div>
     </div>
-    <p class="why">Five minutes a day of this beat meditation for mood. <b>Stanford, 2023</b> (108 people).</p>
-  </section>
+    <p class="tag in d1" style="color:var(--saffron)">A 5-second life skill</p>
+    <h1 class="in d2">Your face<br>talks <span class="shine">first.</span></h1>
+    <p class="lede in d3">You laugh when you're nervous. <b>They think you're rude.</b> Here's how to fix it in five seconds.</p>
+    <a class="cta in d4" href="#steps">Show me <span aria-hidden="true">↓</span></a>
+  </div></header>
 
-  <section class="card" aria-labelledby="s3">
-    <div class="step-head"><div class="num n3">3</div><h2 id="s3">If you still laugh, say it</h2></div>
-    <svg class="art" viewBox="0 0 480 120" aria-hidden="true">
-      <circle cx="70" cy="62" r="46" fill="var(--face)" stroke="var(--ink)" stroke-width="4"/>
-      <path d="M50 58 q6 -6 12 0 M78 58 q6 -6 12 0" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
-      <path d="M52 78 q18 16 36 0" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>
-      <path d="M128 62 l26 -12 v24z" fill="var(--sun)"/>
-      <rect x="150" y="14" width="314" height="96" rx="24" fill="var(--sun)"/>
-      <text x="307" y="55" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="#16203A">“Sorry, I laugh</text>
-      <text x="307" y="85" text-anchor="middle" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="800" font-size="22" fill="#16203A">when I’m nervous.”</text>
-    </svg>
-    <p class="why">Don't hide it behind your hand. Hiding looks guilty. One honest sentence turns “rude” into “human.”</p>
-  </section>
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span>
+    <span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span><span>NAME IT ✦ BREATHE ✦ SAY IT ✦</span>
+  </div></div>
 
-  <section class="card mistake" aria-labelledby="m">
-    <p class="eyebrow">The mistake everyone makes</p>
-    <h2 id="m">Don't fight it. Rename it.</h2>
+  <section id="steps" class="g"><div class="col steps">
+    <article class="step s1" aria-labelledby="h1s">
+      <div class="big" aria-hidden="true">01</div>
+      <p class="tag">Step one</p>
+      <h2 id="h1s">Name it.</h2>
+      <p>Say it in your head, not out loud:</p>
+      <p class="quote">“This is stress. Not funny.”</p>
+      <div class="proof"><span class="chip">UCLA · 2007</span><span>Naming a feeling calms your brain's alarm. 30 people tested.</span></div>
+    </article>
+
+    <article class="step s2" aria-labelledby="h2s">
+      <div class="big" aria-hidden="true">02</div>
+      <p class="tag">Step two</p>
+      <h2 id="h2s">Breathe.</h2>
+      <p>Two quick breaths in. One long breath out. Try it now.</p>
+      <div class="orb-zone">
+        <div class="orb" aria-live="polite"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="core" id="core"></div><span class="cue" id="cue">Ready?</span></div>
+        <div class="beats" aria-hidden="true"><i></i><i></i><b></b><span>in · in · out</span></div>
+        <button class="btn" id="go" type="button">Breathe with me</button>
+      </div>
+      <div class="proof"><span class="chip">Stanford · 2023</span><span>5 minutes a day beat meditation. 108 people tested.</span></div>
+    </article>
+
+    <article class="step s3" aria-labelledby="h3s">
+      <div class="big" aria-hidden="true">03</div>
+      <p class="tag">Step three</p>
+      <h2 id="h3s">Say it.</h2>
+      <p>Still laughing? Don't hide it. Own it.</p>
+      <p class="say" id="say" aria-label="Sorry, I laugh when I'm nervous.">Sorry, I laugh when I'm nervous.</p>
+      <p style="font-weight:600">Hiding looks guilty. Honest looks human.</p>
+    </article>
+  </div></section>
+
+  <section class="mistake g"><div class="col" style="display:grid;gap:18px">
+    <p class="tag" style="color:var(--pink)">The mistake everyone makes</p>
+    <h2>Stop saying <em>“calm down.”</em></h2>
     <div class="swap">
       <div class="pill no">“Calm down.”</div>
       <div class="arrow" aria-hidden="true">→</div>
-      <div class="pill yes">“I’m excited.”</div>
+      <div class="pill yes">“I'm excited.”</div>
     </div>
-    <div class="bars" role="img" aria-label="Singing test scores: I'm excited 80 percent, I'm calm 69 percent">
-      <div class="bar"><span>“I’m excited”</span><div class="track"><div class="fill" style="width:80%;background:var(--sun)"></div></div><span class="v">80%</span></div>
-      <div class="bar"><span>“I’m calm”</span><div class="track"><div class="fill" style="width:69%;background:var(--sky)"></div></div><span class="v">69%</span></div>
+    <div class="chart" role="img" aria-label="Singing test scores: people who said I'm excited scored 80 percent, people who said I'm calm scored 69 percent">
+      <p class="tag">Harvard · 2014 · singing test score</p>
+      <div class="row"><span>“I'm excited”</span><div class="bar"><span style="width:80%;background:linear-gradient(90deg,var(--saffron),#FF8A00)"></span></div><span class="v">80%</span></div>
+      <div class="row"><span>“I'm calm”</span><div class="bar"><span style="width:69%;background:var(--soft)"></span></div><span class="v" style="color:var(--soft)">69%</span></div>
     </div>
-    <p class="why">Singing test scores, <b style="color:inherit">Harvard, 2014</b>. Trying not to think about something makes it come back more than once a minute (<b style="color:inherit">Trinity University, 1987</b>).</p>
-  </section>
+    <div class="bear">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="16" cy="16" r="9" fill="#FFF7EC"/><circle cx="48" cy="16" r="9" fill="#FFF7EC"/><circle cx="32" cy="36" r="24" fill="#FFF7EC"/><circle cx="24" cy="32" r="3" fill="#0D0F2B"/><circle cx="40" cy="32" r="3" fill="#0D0F2B"/><ellipse cx="32" cy="43" rx="7" ry="5" fill="#0D0F2B"/></svg>
+      <p><b>Don't think of a white bear.</b>You just did. People who tried not to think of one still did, more than once a minute. Fighting a feeling makes it louder. (Trinity University · 1987)</p>
+    </div>
+  </div></section>
 
-  <section aria-label="Recap" class="recap">
-    <div><small>Step 1</small>Name it</div>
-    <div><small>Step 2</small>Breathe</div>
-    <div><small>Step 3</small>Say it</div>
-  </section>
+  <section class="finale g"><div class="col" style="display:grid;gap:18px">
+    <h2>Calm inside.<br><span class="shine">Honest outside.</span></h2>
+    <div class="chips">
+      <div><small>01</small>Name it</div>
+      <div><small>02</small>Breathe</div>
+      <div><small>03</small>Say it</div>
+    </div>
+  </div></section>
 
-  <footer>
-    <p>From Bekir Bozkurt's Life Skills speech, COMMC 1000.</p>
+  <footer class="g"><div class="col" style="display:grid;gap:8px">
+    <p>From Bekir Bozkurt's Life Skills speech · COMMC 1000</p>
     <ul>
       <li>Lieberman et al., Psychological Science, 2007</li>
       <li>Balban et al., Cell Reports Medicine, 2023</li>
@@ -181,25 +249,43 @@ footer ul{margin:0;padding-left:1.1em}
       <li>Aragón et al., Psychological Science, 2015</li>
       <li>Fredrickson &amp; Levenson, Cognition and Emotion, 1998</li>
     </ul>
-  </footer>
-</div>
+  </div></footer>
+</main>
 
 <script>
 (function(){
-  const ring=document.getElementById('ring'), cue=document.getElementById('cue'), go=document.getElementById('go');
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let running=false;
-  const wait=ms=>new Promise(r=>setTimeout(r,ms));
-  function set(scale,text,dur){ring.style.transitionDuration=reduce?'0s':dur+'ms';ring.style.transform='scale('+scale+')';cue.textContent=text;}
-  go.addEventListener('click', async ()=>{
-    if(running) return; running=true; go.disabled=true;
-    for(let i=0;i<3;i++){
-      set(.82,'In',1100); await wait(1300);
-      set(1,'In again',700); await wait(1000);
-      set(.62,'Out…',4200); await wait(4600);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Breathing coach
+  var core=document.getElementById('core'), cue=document.getElementById('cue'), go=document.getElementById('go'), busy=false;
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function set(s,t,ms){core.style.transitionDuration=(reduce?0:ms)+'ms';core.style.transform='scale('+s+')';cue.textContent=t}
+  go.addEventListener('click', async function(){
+    if(busy) return; busy=true; go.disabled=true;
+    for(var i=0;i<3;i++){
+      set(.9,'In',1000); await wait(1200);
+      set(1.05,'In again',600); await wait(900);
+      set(.7,'Out…',4200); await wait(4600);
     }
-    cue.textContent='Nice.'; go.textContent='Again'; go.disabled=false; running=false;
+    cue.textContent='Nice.'; go.textContent='Again'; go.disabled=false; busy=false;
   });
+
+  // Typing bubble (text is already there at rest; this only replays it)
+  var say=document.getElementById('say'), text=say.textContent;
+  if(!reduce && 'IntersectionObserver' in window){
+    var played=false;
+    new IntersectionObserver(function(es,obs){
+      es.forEach(function(e){
+        if(e.isIntersecting && !played){
+          played=true; obs.disconnect();
+          var i=0; say.textContent='';
+          var caret=document.createElement('span'); caret.className='caret';
+          var t=document.createTextNode(''); say.appendChild(t); say.appendChild(caret);
+          (function tick(){ if(i<=text.length){ t.nodeValue=text.slice(0,i++); setTimeout(tick, 45);} })();
+        }
+      });
+    },{threshold:.6}).observe(say);
+  }
 })();
 </script>
 </body>
