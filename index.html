@@ -146,6 +146,26 @@ main{position:relative;z-index:1}
 footer{padding-block:24px 40px;color:var(--soft);font-size:.8rem;display:grid;gap:8px;border-top:1px solid rgba(255,255,255,.1)}
 footer ul{margin:0;padding-left:1.1em}
 
+
+/* ---------- byline + contact ---------- */
+.byline{display:flex;align-items:center;gap:14px;padding-block:14px;margin-top:6px;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}
+.stack{display:flex;flex:0 0 auto}
+.stack img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--night);margin-left:-12px;background:var(--night-2)}
+.stack img:first-child{margin-left:0}
+.by{display:grid;gap:1px;min-width:0;font-size:.9rem;color:var(--soft)}
+.by b{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--paper);letter-spacing:-.01em}
+.by small{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--saffron)}
+.contact{padding-block:8px 34px}
+.contact .inner{display:grid;gap:14px;padding-block:20px;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}
+.who{display:flex;align-items:center;gap:14px}
+.links{display:grid;gap:2px}
+.links a{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--paper);text-decoration:none;padding:10px 2px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem;min-width:0}
+.links a:last-child{border-bottom:0}
+.links a span:first-child{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--soft);flex:0 0 auto}
+.links a span:last-child{font-weight:600;overflow-wrap:anywhere;text-align:right}
+.links a:hover span:last-child{color:var(--saffron)}
+.links a:focus-visible{outline:2px solid var(--saffron);outline-offset:2px;border-radius:6px}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
@@ -171,6 +191,7 @@ footer ul{margin:0;padding-left:1.1em}
     <h1 class="in d2">Your face<br>talks <span class="shine">first.</span></h1>
     <p class="lede in d3">You laugh when you're nervous. <b>They think you're rude.</b> Here's how to fix it in five seconds.</p>
     <a class="cta in d4" href="#steps">Show me <span aria-hidden="true">↓</span></a>
+    <div class="byline in d4"><div class="stack"><img src="img/me1.jpg" alt="Bekir Bozkurt"><img src="img/me2.jpg" alt=""><img src="img/me3.jpg" alt=""></div><div class="by"><small>Made by</small><b>Bekir Bozkurt</b><span>November 2, 2026</span></div></div>
   </div></header>
 
   <div class="marquee" aria-hidden="true"><div class="track">
@@ -236,6 +257,16 @@ footer ul{margin:0;padding-left:1.1em}
       <div><small>01</small>Name it</div>
       <div><small>02</small>Breathe</div>
       <div><small>03</small>Say it</div>
+    </div>
+  </div></section>
+
+  <section class="contact g" aria-label="Contact"><div class="col inner">
+    <div class="who"><div class="stack"><img src="img/me1.jpg" alt="Bekir Bozkurt"><img src="img/me2.jpg" alt=""><img src="img/me3.jpg" alt=""></div><div class="by"><small>Say hi</small><b>Bekir Bozkurt</b></div></div>
+    <div class="links">
+      <a href="https://instagram.com/bberk.bz" target="_blank" rel="noopener"><span>Instagram</span><span>@bberk.bz</span></a>
+      <a href="https://www.linkedin.com/in/bekir-berk-bozkurt-606536366/" target="_blank" rel="noopener"><span>LinkedIn</span><span>Bekir Berk Bozkurt</span></a>
+      <a href="mailto:bbozkurt@student.ccd.edu"><span>Email</span><span>bbozkurt@student.ccd.edu</span></a>
+      <a href="tel:+19492598892"><span>Phone</span><span>(949) 259-8892</span></a>
     </div>
   </div></section>
 
